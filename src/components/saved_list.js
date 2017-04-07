@@ -10,7 +10,6 @@ class SavedList extends Component {
 	render() {
 		const video = this.props.video;
 		const onVideoSelect = this.props.onVideoSelect;
-		//const slide = this.props.slide;
 
 	if (this.props.savedVideos.length === 0) {
 		return (
@@ -29,11 +28,11 @@ class SavedList extends Component {
 		return (
 			<li key={index} className="saved-item">
 			<div className="row">
-				<div className="col-xs-12">
+				<div className="col-xs-12 pad-fix">
 					<div onClick={() => onVideoSelect(video)} className="col-xs-4 saved-image no-pad">
-						<img className="" src={imageUrl} />
+						<img src={imageUrl} />
 					</div>
-					<div className="col-xs-8 left-pad">
+					<div className="col-xs-8">
 						<div onClick={() => onVideoSelect(video)} className="saved-text">
 							{video.snippet.title}
 						</div>
@@ -44,9 +43,7 @@ class SavedList extends Component {
 								>Remove</button>
 						</div>
 					</div>
-
 				</div>
-
 			</div>
 		</li>
 		);
@@ -85,16 +82,6 @@ class SavedList extends Component {
 		localStorage.clear();
 		localStorage.setItem("localStore", JSON.stringify(this.props.savedVideos))
 	}
-
-	//savedScroll() {
-		// var window = document.window;
-		// var stickyEl = '#saved-trigger';
-		// var elTop = stickyEl.offset().top;
-		//
-		// window.scroll() => {
-		// 	 $stickyEl.toggleClass('sticky', $window.scrollTop() > elTop);
-		//  }
-	 //});
 
 }
 

@@ -27,19 +27,6 @@ function checkLocal() {
 	}
 }
 
-function checkSaved() {
-	const savedId = saved.etag;
-	const savedIdArray = this.state.savedVideos.map((video) => {
-		return video.etag
-	});
-
-	if(savedIdArray.indexOf(savedId) !== -1) {
-		return alert('-- Already Saved --');
-	} else {
-		return this.setState({savedVideos: this.state.savedVideos.concat(saved) });
-	}
-}
-
 class App extends Component {
 	constructor(props) {
 		super(props);
@@ -47,8 +34,7 @@ class App extends Component {
 		this.state = {
 			videos: [],
 			selectedVideo: null,
-			savedVideos: checkLocal(),
-			checkSaved: "+ Save Video"
+			savedVideos: checkLocal()
 		};
 
 		this.videoSearch('jimmy fallon');
@@ -66,13 +52,13 @@ class App extends Component {
 	saveCheck(saved) {
 		//console.log('running saveCheck');
 		//console.log('-----------------');
-		const savedId = saved.etag;
+		const savedId = saved.snippet.title;
 		const savedIdArray = this.state.savedVideos.map((video) => {
-			return video.etag
+			return video.snippet.title
 		});
 
 		if(savedIdArray.indexOf(savedId) !== -1) {
-			return alert('-- Already Saved --');
+			return this.setState({buttonSet: "Already Added"});
 		} else {
 			return this.setState({savedVideos: this.state.savedVideos.concat(saved) });
 		}
@@ -87,17 +73,16 @@ class App extends Component {
 					<VideoDetail
 						video={this.state.selectedVideo}
 						savedVideos={this.state.savedVideos}
-						checkSaved={this.state.checkSaved}
 						onVideoSave={saved => this.saveCheck(saved)}
 						localStore={localStorage.setItem("localStore", JSON.stringify(this.state.savedVideos))}
+						selectedVideo={this.state.selectedVideo}
 						 />
 				</div>
 				<div className="col-md-5">
 					<SavedList
 						video={this.state.selectedVideo}
 						savedVideos={this.state.savedVideos}
-						onVideoSelect={selectedVideo => this.setState({selectedVideo}) }
-						slide={this.state.slide}
+						onVideoSelect={selectedVideo => this.setState({selectedVideo: selectedVideo}) }
 						/>
 				</div>
 				<div className="col-sm-12">
@@ -105,7 +90,7 @@ class App extends Component {
 				</div>
 				<div className="col-sm-12">
 					<VideoList
-						onVideoSelect={selectedVideo => this.setState({selectedVideo}) }
+						onVideoSelect={selectedVideo => this.setState({selectedVideo: selectedVideo}) }
 						videos={this.state.videos} />
 				</div>
 				<div className="col-sm-12">
@@ -114,6 +99,7 @@ class App extends Component {
 			</div>
 		);
 	}
+
 }
 //onVideoSave={savedVideos => this.setState({savedVideos: this.state.savedVideos.concat([savedVideos]) })}
 
