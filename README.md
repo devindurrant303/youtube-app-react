@@ -8,11 +8,12 @@
 - Responsive desktop/mobile layout
 
 ```
-npm -v:   3.10.10
-webpack:  1.12.9
-requires youtube api via google
-
+git clone https://github.com/devindurrant303/youtube-app-react.git
+cd youtube-app-react
+npm install
+npm start
 ```
+
 <img src="https://cloud.githubusercontent.com/assets/26286658/25241269/a0bf2faa-25b2-11e7-9fb6-f8f3bb86b8ec.JPG" alt="" width="500" />
 > Desktop/full-width
 
