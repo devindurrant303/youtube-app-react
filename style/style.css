@@ -1,4 +1,10 @@
+/* ----- general styling ----- */
 .container {
+		padding-left: 0;
+		padding-right: 0;
+}
+
+.container .no-pad {
 		padding-left: 0;
 		padding-right: 0;
 }
@@ -12,6 +18,24 @@
 	padding: .5rem 0;
 }
 
+@media(max-width:767px) {
+	.mobile-show {
+		display: block;
+	}
+	.mobile-hide {
+		display: none;
+	}
+}
+
+@media(min-width:767px) {
+	.mobile-show {
+		display: none;
+	}
+	.mobile-hide {
+		display: block;
+	}
+}
+
 /* ----- Search Bar ----- */
 .search-bar {
 	margin: 0;
@@ -20,16 +44,25 @@
 	border-top: 1px solid #ddd;
 }
 
+.search-bar input::placeholder {
+	color: #aaa;
+}
+
 .search-bar input {
 	width: 50%;
 	border: 1px solid #e52d27;
-	padding: 2px 8px;
+	padding: 4px 8px;
+	margin: 0;
 	text-align: center;
 	font: normal 1rem Arial;
 	line-height: 1.5rem;
+	color: #333;
 }
 
-@media(max-width:600px) {
+@media(max-width:767px) {
+	.search-bar {
+		border: none;
+	}
 	.search-bar input {
 		width: 75%;
 	}
@@ -40,9 +73,51 @@
 	outline-color: #e52d27;
 }
 
+.list-toggle {
+	text-align: center;
+	margin: 0 auto;
+	padding: 0 0 7px;
+	width: 70px;
+}
+
+@media(min-width:767px) {
+	.list-toggle {
+		display:none;
+	}
+}
+
+.list-toggle .closed {
+	border: solid #999;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 5px;
+	margin: 0 0 5px 0;
+  -webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+	-moz-transition-duration: 0.3s;
+  -webkit-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+}
+
+.list-toggle .open {
+	border: solid #999;
+	border-width: 0 2px 2px 0;
+	display: inline-block;
+	padding: 5px;
+	margin: 0;
+	-webkit-transform: rotate(225deg);
+	transform: rotate(225deg);
+	-moz-transition-duration: 0.3s;
+	-webkit-transition-duration: 0.3s;
+	-o-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+}
+
 /* ----- Detail (player) ----- */
 .video-detail {
-	margin-top:10px;
+	margin: 10px auto 0;
+	max-width: 550px;
 }
 
 .video-detail .details {
@@ -52,8 +127,39 @@
 	color: #333;
 }
 
+.snippet {
+	min-height: 50px;
+}
+
 /* ----- Search List ----- */
-.frame {
+#wrap {
+	border-bottom: 1px solid #ddd;
+}
+
+@media(max-width:767px) {
+	#frame.open {
+		padding: 3px 0;
+		margin: 0 0 12px 0;
+		border-bottom: 1px solid #ddd;
+		height: 185px;
+		-moz-transition-duration: 0.5s;
+	  -webkit-transition-duration: 0.5s;
+	  -o-transition-duration: 0.5s;
+	  transition-duration: 0.5s;
+	}
+	#frame.closed {
+		padding: 0;
+		margin: 0;
+		border: none;
+		height: 0;
+		-moz-transition-duration: 0.5s;
+	  -webkit-transition-duration: 0.5s;
+	  -o-transition-duration: 0.5s;
+	  transition-duration: 0.5s;
+	}
+}
+
+#frame {
 	width: 100%;
 	height: 180px;
 	margin: 10px 0;
@@ -64,7 +170,7 @@
 	overflow-y: hidden;
 }
 
-.frame ul {
+#frame ul {
 	white-space: nowrap;
 	cursor: pointer;
 	font:normal 16px Arial;
@@ -76,7 +182,7 @@
 	width: 7035px;
 }
 
-.frame li {
+#frame li {
 	vertical-align: top;
 	display: list-item;
 	margin: 0 1px 0 0;
@@ -89,6 +195,12 @@
 	cursor: pointer;
 	float: left;
 	color: #333;
+}
+
+@media(max-width:767px) {
+	#frame li {
+		width: 140px;
+	}
 }
 
 .list-group-video:hover {
@@ -105,7 +217,6 @@
 	float:left;
 	margin:0;
 	padding:5px 0;
-	width:200px;
 }
 
 .details-title {
@@ -166,6 +277,7 @@
 .Save button:active {
 	background-color: #fff;
 	color: #fff;
+	border-color: #fff;
 }
 
 .Save button:focus {
@@ -192,10 +304,11 @@
 
 /* ----- Saved ----- */
 .video-save {
-	margin: 25px 0 15px 0;
+	margin: 25px auto 15px auto;
+	max-width: 350px;
 	background-color: #fff;
-	border: 1px solid #ddd;
 	text-align: center;
+	border: 1px solid #ddd;
 }
 
 @media (max-width: 767px) {
@@ -210,21 +323,22 @@
 	background-color:#ddd;
 }
 
-.video-save .closed {
+#slider-div.closed {
 	overflow: hidden;
-  max-height: 0;
+  height: 0;
   padding-top: 0;
   padding-bottom: 0;
   margin-top: 0;
   margin-bottom: 0;
+	border: none;
   -moz-transition-duration: 0.3s;
   -webkit-transition-duration: 0.3s;
   -o-transition-duration: 0.3s;
   transition-duration: 0.3s;
 }
 
-.video-save .open {
-  max-height: 465px;
+#slider-div.open {
+  height: 440px;
   overflow-y: auto;
 	overflow-x: hidden;
 	position: relative;
@@ -236,41 +350,46 @@
   transition-duration: 0.3s;
 }
 
-.saved-trigger .closed {
-  border: solid black;
+@media(max-width:980px) {
+	#slider-div.open {
+		height: 350px;
+	}
+}
+
+#arrow.closed {
+  border: solid #999;
   border-width: 0 2px 2px 0;
   display: inline-block;
   padding: 3px;
 	margin:0 0 3px 8px;
   -webkit-transform: rotate(45deg);
 	transform: rotate(45deg);
-	-moz-transition-duration: 0s;
-  -webkit-transition-duration: 0s;
-  -o-transition-duration: 0s;
-	transition-duration: 0s;
+	-moz-transition-duration: 0.3s;
+  -webkit-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+	transition-duration: 0.3s;
 }
 
-.saved-trigger .open {
-  border: solid black;
-  border-width: 2px 0 0 2px;
+#arrow.open {
+  border: solid #999;
+  border-width: 0 2px 2px 0;
   display: inline-block;
   padding: 3px;
 	margin:0 0 0 8px;
-  -webkit-transform: rotate(45deg);
-	transform: rotate(45deg);
-	-moz-transition-duration: 0s;
-  -webkit-transition-duration: 0s;
-  -o-transition-duration: 0s;
-	transition-duration: 0s;
+  -webkit-transform: rotate(225deg);
+	transform: rotate(225deg);
+	-moz-transition-duration: 0.3s;
+  -webkit-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+	transition-duration: 0.3s;
 }
 
 .saved-trigger {
 	text-align:center;
 	font:bold 1rem Arial;
-	color:#333;
+	color:#999;
 	padding: .75rem 0;
 	cursor: pointer;
-	border-bottom: 1px solid #ddd;
 }
 
 .saved-item {
@@ -286,6 +405,16 @@
 .saved-item:hover {
 	border-bottom: 2px solid #e52d27;
 	background-color: #f7f7f7;
+}
+
+.saved-item:before {
+	content: "";
+	display: block;
+	height: 1px;
+	background-color: #ddd;
+	width: 100%;
+	margin: 0;
+	padding: 0;
 }
 
 .saved-item:after {
@@ -378,9 +507,80 @@
 
 .footer {
 	padding:10px;
-	margin: 10px 0;
+	margin: 0;
 	text-align:center;
 	font: normal 12px Arial;
 	color: #999;
 	border-top: 1px solid #ddd;
+}
+
+.header {
+	height: 6px;
+	margin:0;
+	padding:0;
+}
+
+/* ----- Flashy Background ----- */
+/* ----- borrowed from Josh Depaolo ----- */
+.flashy-bg {
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(270deg, #e52d27, #fb3d36, #e52d27, #b51a15);
+    background-size: 800% 800%;
+    -webkit-animation: AnimationName 3s ease infinite;
+    -moz-animation: AnimationName 3s ease infinite;
+    -o-animation: AnimationName 3s ease infinite;
+    animation: AnimationName 3s ease infinite
+}
+
+@-webkit-keyframes AnimationName {
+    0% {
+        background-position: 0 50%
+    }
+    50% {
+        background-position: 100% 50%
+    }
+    100% {
+        background-position: 0 50%
+    }
+}
+
+@-moz-keyframes AnimationName {
+    0% {
+        background-position: 0 50%
+    }
+    50% {
+        background-position: 100% 50%
+    }
+    100% {
+        background-position: 0 50%
+    }
+}
+
+@-o-keyframes AnimationName {
+    0% {
+        background-position: 0 50%
+    }
+    50% {
+        background-position: 100% 50%
+    }
+    100% {
+        background-position: 0 50%
+    }
+}
+
+@keyframes AnimationName {
+    0% {
+        background-position: 0 50%
+    }
+    50% {
+        background-position: 100% 50%
+    }
+    100% {
+        background-position: 0 50%
+    }
 }

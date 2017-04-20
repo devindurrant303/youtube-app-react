@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { StickyContainer, Sticky } from 'react-sticky';
 
 class SavedList extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {slide: (window.innerWidth > 500) ? "open":"closed"};
+		this.state = {slider: (window.innerWidth > 767) ? "open":"closed"};
 	}
 
 	render() {
@@ -51,27 +50,23 @@ class SavedList extends Component {
 
 	return (
 		<div className="video-save">
-			<StickyContainer>
-				<Sticky>
-					 <div onClick={this.handleClick.bind(this)} className="saved-trigger">
-							 Saved Videos<span id="arrow" className={this.state.slide}></span>
-					 </div>
-				 </Sticky>
-				<div className={this.state.slide}>
-						<ul className="details">
-							{savedItems}
-						</ul>
-				</div>
-			</StickyContainer>
+			<div onClick={this.handleClick.bind(this)} className="saved-trigger">
+				Saved Videos<span id="arrow" className={this.state.slider}></span>
+			</div>
+			<div id="slider-div" className={this.state.slider}>
+				<ul className="details">
+					{savedItems}
+				</ul>
+			</div>
 		</div>
-	);
+		);
 	}
 
-	 handleClick(slide) {
-		 if (this.state.slide === "closed" ){
-			 this.setState({slide: "open"});
+	 handleClick(slider) {
+		 if (this.state.slider === "closed" ){
+			 this.setState({slider: "open"});
 		 } else {
-			 this.setState({slide: "closed"});
+			 this.setState({slider: "closed"});
 		 }
 	 }
 

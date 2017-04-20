@@ -7,7 +7,9 @@ class VideoList extends Component {
 	}
 
 render() {
+	const slide = this.props.slide;
 	const video = this.props.video;
+	const onListToggle = this.props.onListToggle;
 	const videoItems = this.props.videos.map((video) => {
 		return (
 			<VideoListItem
@@ -18,11 +20,14 @@ render() {
 	});
 
 	return (
-		<div className="wrap">
-			<div className="frame">
-				<ul className="list-group clearfix" id="centered">
+		<div id="wrap">
+			<div id="frame" className={this.props.slide}>
+				<ul className="list-group clearfix">
 					{videoItems}
 				</ul>
+			</div>
+			<div onClick={() => onListToggle()} className="list-toggle">
+				<span className={this.props.slide}></span>
 			</div>
 		</div>
 	);

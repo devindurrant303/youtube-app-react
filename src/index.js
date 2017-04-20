@@ -7,7 +7,6 @@ import VideoList from './components/video_list';
 import VideoDetail from './components/video_detail';
 import SavedList from './components/saved_list';
 import Footer from './components/footer';
-import { StickyContainer, Sticky } from 'react-sticky';
 //import { Provider } from 'react-redux';
 //import store from './store';
 //import { createStore, applyMiddleware } from 'redux';
@@ -34,19 +33,30 @@ class App extends Component {
 		this.state = {
 			videos: [],
 			selectedVideo: null,
-			savedVideos: checkLocal()
+			savedVideos: checkLocal(),
+			slide: "closed"
 		};
 
 		this.videoSearch('jimmy fallon');
 	}
 
-	videoSearch(term) {
+	videoSearch(term, slide) {
 		YTSearch({key: API_KEY, term: term, maxResults: 35}, (videos) => {
 			this.setState({
 				videos: videos,
-				selectedVideo: videos[0],
+				selectedVideo: videos[0]
 			});
 		});
+	}
+
+	onListToggle() {
+		console.log(this.state.slide);
+
+		if (this.state.slide === "closed" ){
+			return this.setState({slide: "open"});
+		} else {
+			return this.setState({slide: "closed"});
+		}
 	}
 
 	saveCheck(saved) {
@@ -58,9 +68,12 @@ class App extends Component {
 		});
 
 		if(savedIdArray.indexOf(savedId) !== -1) {
-			return this.setState({buttonSet: "Already Added"});
+			return null;
 		} else {
-			return this.setState({savedVideos: this.state.savedVideos.concat(saved) });
+			return this.setState({
+				savedVideos: this.state.savedVideos.concat(saved),
+				slider: "open"
+			 });
 		}
 	}
 
@@ -69,7 +82,23 @@ class App extends Component {
 
 		return (
 			<div>
-				<div className="col-md-7">
+				<div className="col-sm-12 no-pad mobile-show">
+					<SearchBar
+						onSearchTermChange={videoSearch}
+						slide={this.state.slide}
+						onSlideSearch={slide => this.setState({slide: "open"})}
+					/>
+					<VideoList
+							onVideoSelect={selectedVideo => this.setState({
+								selectedVideo: selectedVideo,
+								slide: "closed"
+							}) }
+							videos={this.state.videos}
+							slide={this.state.slide}
+							onListToggle={slide => this.onListToggle()}
+						/>
+				</div>
+				<div className="col-md-7 col-sm-12 no-pad">
 					<VideoDetail
 						video={this.state.selectedVideo}
 						savedVideos={this.state.savedVideos}
@@ -78,22 +107,28 @@ class App extends Component {
 						selectedVideo={this.state.selectedVideo}
 						 />
 				</div>
-				<div className="col-md-5">
+				<div className="col-md-5 col-sm-12">
 					<SavedList
 						video={this.state.selectedVideo}
 						savedVideos={this.state.savedVideos}
-						onVideoSelect={selectedVideo => this.setState({selectedVideo: selectedVideo}) }
+						onVideoSelect={selectedVideo => this.setState({selectedVideo}) }
 						/>
 				</div>
-				<div className="col-sm-12">
-					<SearchBar onSearchTermChange={videoSearch} />
+				<div className="col-sm-12 no-pad mobile-hide">
+					<SearchBar
+						onSearchTermChange={videoSearch}
+						slide={this.state.slide}
+						onListToggle={slide => this.onListToggle()}
+						onSlideSearch={slide => this.setState({slide: "open"})}
+						/>
 				</div>
-				<div className="col-sm-12">
+				<div className="col-sm-12 no-pad mobile-hide">
 					<VideoList
-						onVideoSelect={selectedVideo => this.setState({selectedVideo: selectedVideo}) }
+						slide={this.state.slide}
+						onVideoSelect={selectedVideo => this.setState({selectedVideo}) }
 						videos={this.state.videos} />
 				</div>
-				<div className="col-sm-12">
+				<div className="col-sm-12 no-pad">
 					<Footer />
 				</div>
 			</div>
