@@ -5,7 +5,7 @@
 
 - Search and play YouTube videos.
 - Save videos to local storage.
-- Responsive layout.
+- Responsive layout and functionality.
 
 ```
 git clone https://github.com/devindurrant303/youtube-app-react.git
