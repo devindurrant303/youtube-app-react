@@ -1,6 +1,10 @@
-# React YouTube App
+## React YouTube App
 
 #### Personal project to learn React.js
+
+- Search and play YouTube videos.
+- Save videos to local storage.
+- Responsive desktop/mobile layout
 
 ```
 npm stuff
