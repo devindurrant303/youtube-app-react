@@ -1,6 +1,6 @@
-#React YouTube App
+# React YouTube App
 
-####Personal project to learn React.js
+#### Personal project to learn React.js
 
 ```
 npm stuff
